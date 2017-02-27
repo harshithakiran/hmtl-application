@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$('.tarea').hide();
+$('#save').click(function () {
+   $('#loading').show();
+   $('.tarea').hide();
+    // add loading image to div
+    $('#loading').html('<img src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif"> loading...');
+    var f=$('#fname').val();
+    var l=$('#lname').val();
+    // run ajax request
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "https://api.github.com",
+        success: function (d) {            
+            setTimeout(function () {
+                $('#loading').hide();
+                $('.tarea').show();
+				      $('textarea').val(f+"  "+l);
+            }, 2000);
+			
+        }
+    });
+});
+});
+</script>
+</head>
+<body>
+<input type="text" placeholder="first name" id="fname"><br>
+<input type="text" placeholder="last name" id="lname"><br>
+<input type="checkbox">hobby1<br>
+<input type="checkbox">hobby2<br>
+<input type="checkbox">hobby3<br>
+<input type="checkbox">hobby4<br>
+<button id="save">Save</button><br>
+
+<div id="loading"></div><br>
+<textarea class="tarea"></textarea>
+</body>
+</html>
